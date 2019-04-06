@@ -94,6 +94,34 @@
         
         <p><i>&lt;div&gt;</i>s are the go-to element for organizing the layout of your page.</p>
         
+        <h2>Less Common Elements</h2>
+        <div class="example">
+          # Ruler
+          Use rulers to divide up 
+          <hr>
+          content
+          <hr>
+          like so.
+        </div>
+        
+        <div class="example">
+          # Ordered List
+          <ol>
+            <li>one</li>
+            <li>two</li>
+            <li>...</li>
+          </ol>
+        </div>
+        
+        <div class="example">
+          # Unordered List
+          <ul>
+            <li>one</li>
+            <li>two</li>
+            <li>...</li>
+          </ul>
+        </div>
+        
         <h2>Element Layout</h2>
         <p>Most HTML elements default to either an <i>inline</i> display or a <i>block</i> display.</p>
         
@@ -403,6 +431,127 @@
           </div>
         </div>
         
+        <h2>CSS Cosmetics</h2>
+        <div class="example">
+          # Opacity
+          <div style="background-color: lightgrey; padding: 1em;">
+            <div style="opacity: 0.8">80% opacity (20% transparency)</div>
+            <div style="opacity: 0.4">40% opacity (60% transparency)</div>
+          </div>
+        </div>
+        
+        <div class="example">
+          # Text-Decoration
+          <div style="background-color: lightgrey; padding: 1em;">
+            <div style="text-decoration: none;">This is the default (except for links).</div>
+            <div style="text-decoration: underline;">text-decoration: underline</div>
+          </div>
+        </div>
+        
+        <div class="example">
+          # Text Color
+          <div style="background-color: lightgrey; padding: 1em;">
+            <div style="color: white;">White</div>
+            <div style="color: #ff8800;">Orange</div>
+            <div style="color: rgba(0, 0, 255, 0.5);">Translucent Blue</div>
+            <div style="color: hsl(120, 90%, 10%);">Dark green</div>
+          </div>
+        </div>
+        
+        <div class="example">
+          # Background Color
+          <div style="background-color: red;">Red</div>
+          <div style="background-color: #ff8800;">Orange</div>
+          <div style="background-color: rgba(0, 0, 255, 0.5);">Translucent Blue</div>
+          <div style="background-color: hsl(120, 90%, 10%);">Dark green</div>
+        </div>
+        
+        <div class="example">
+          # Text Alignment
+          <div style="text-align: left;">Left</div>
+          <div style="text-align: center;">Center</div>
+          <div style="text-align: right">Right</div>
+        </div>
+        
+        <div class="example">
+          # Fonts
+          <div style="font-family: monospace;">monospace</div>
+          <div style="font-family: serif;">serif</div>
+          <div style="font-family: sans-serif;">sans-serif</div>
+          <div style="font-size: 1.5rem;">bigger</div>
+          <div style="font-size: 0.5rem;">smaller</div>
+          <div style="font-style: italic;">italic</div>
+          <div style="font-weight: bold;">bold</div>
+        </div>
+        
+        <div class="example">
+          # Fixed-height container with scrollbar
+          <div style="
+            overflow-y: scroll; 
+            height: 100px;">
+            <ol>
+              <li>one</li>
+              <li>two</li>
+              <li>three</li>
+              <li>four</li>
+              <li>five</li>
+              <li>six</li>
+              <li>seven</li>
+              <li>eight</li>
+              <li>nine</li>
+              <li>ten</li>
+              <li>eleven</li>
+              <li>twelve</li>
+              <li>thirteen</li>
+              <li>fourteen</li>
+              <li>fifteen</li>
+            </ol>
+          </div>
+        </div>
+        
+        <div class="example">
+          # Container that clips overflowing content.
+          <div style="
+            overflow-x: hidden;
+            overflow-y: hidden;
+            width: 200px;
+            height: 100px;
+            ">
+            <img style="width: 600px" src="http://imageshack.us/v2_images/home-hero2.jpg">
+          </div>
+        </div>
+        
+        <div class="example">
+          # Container with a background image.
+          <div style="
+            background-image: url('http://imageshack.us/v2_images/home-hero2.jpg');
+            height: 100px;
+            ">
+          </div>
+        </div>
+        
+        <div class="example">
+          # Cursor control.
+          <div style="cursor: default;    border: thin solid black;">default</div>
+          <div style="cursor: pointer;    border: thin solid black;">pointer</div>
+          <div style="cursor: move;       border: thin solid black;">move</div>
+          <div style="cursor: crosshair;  border: thin solid black;">crosshair</div>
+          <div style="cursor: ns-resize;  border: thin solid black;">ns-resize</div>
+          <div style="cursor: text;       border: thin solid black;">text</div>
+          <div style="cursor: wait;       border: thin solid black;">wait</div>
+          <div style="cursor: none;       border: thin solid black;">none</div>
+          <div style="cursor: grab;       border: thin solid black;">grab</div>
+        </div>
+        
+        <div class="example">
+          # Text Wrapping
+          <div style="overflow-x: hidden; width: 80vw;">
+            <div style="white-space: nowrap;">No-Wrap: Lorem.</div>
+            <hr>
+            <div style="white-space: wrap;">Wrap: Lorem.</div>
+          </div>
+        </div>
+        
       </div>
     </div>
     <script type="text/javascript">
@@ -430,7 +579,7 @@
       setTimeout(() => {
         $('.example').each((index, code) => {
           let data = $(code).html();
-          data = data.replace('Lorem.', dedent(`
+          data = data.replace(/Lorem./g, dedent(`
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           `));
           let lines = data.split('\n').filter(l => l.trim().length > 0);
