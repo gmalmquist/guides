@@ -1,0 +1,61 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 2rem;
+}
+
+.page-wrapper {
+  display: grid;
+  
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: 1fr;
+  grid-template:
+    "left main"
+  ;
+}
+
+.main-content {
+  grid-area: main;
+  
+  padding-right: 1em;
+}
+
+.sidebar {
+  display: fixed;
+  grid-area: left;
+}
+
+i {
+  display: inline;
+  background-color: #dfdfdf;
+  font-family: monospace;
+  font-style: normal;
+  padding: 2px;
+}
+
+textarea {
+  display: block;
+  background-color: #eeeeee;
+  font-family: monospace;
+  font-style: normal;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 0;
+  width: 100%;
+  
+  overflow-x: hidden;
+  overflow-y: hidden;
+  
+  white-space: pre;
+  
+  padding: 1em;
+  padding-bottom: 2em;
+}
+
+.card {
+  margin-top: 2ex;
+  margin-bottom: 2ex;
+}

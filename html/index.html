@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Basic HTML/CSS Cookbook</title>
+    
+    <!-- Bootstrap stuff -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+  <!-- Plugin for table of contents -->
+  <!-- https://afeld.github.io/bootstrap-toc/ -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"
+  />
+  <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="guide.css"/>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <div class="sidebar">
+        <nav id="toc" class="sticky-top"></nav>
+      </div>
+      <div class="main-content">
+        <h1 id="top">Basic HTML/CSS Cookbook</h1>
+        <p>
+          This is a collection of common recipes I use to do web development 
+          stuff using vanilla HTML and CSS.
+        </p>
+        <p>
+          If you're using frontend libraries like Ant.D, Material-UI, or 
+          bootstrap, you'll find components that do some of these things
+          for you.
+        </p>
+        
+        <h2>Basic HTML Elements</h2>
+        
+        <h3>Headings</h3>
+        <p><i>&lt;h1&gt;</i> <i>&lt;h2&gt;</i> <i>&lt;h3&gt;</i> ...</p>
+        <p>The smaller the number, the larger the heading. The section headers in this guide use these.</p>
+        
+        <h3>Paragraphs</h3>
+        <p>Enclose paragraphs with <i>&lt;p&gt;</i> tags.</p>
+        
+        <div class="example">
+          # Paragraphs
+          <p>My first paragraph.</p>
+          <p>My second paragraph.</p>
+          <p>Some placeholder text: Lorem.</p>
+        </div>
+        
+        <h3>Links</h3>
+        <p>
+          Links use the <i>&lt;a&gt;</i> tag. I don't know why, but it's concise I guess.
+        </p>
+        
+        <div class="example">
+          # Basic Link
+          <a href="http://google.com">Google</a>
+        </div>
+        
+        <div class="example">
+          # Anchor Link
+          <a href="#top">Navigate to the element with <i>id="top"</i></a>
+        </div>
+        
+        <div class="example">
+          # New Tab
+          <a href="http://google.com" target="blank_">Open google in a new tab.</a>
+        </div>
+        
+        <h3>Images</h3>
+        <p>Images use the <i>&lt;img&gt;</i>.</p>
+        
+        <div class="example">
+          # Image
+          Here's an image. By default it'd be too big so I used some css styling to make it smaller.
+          
+          <img 
+            style="
+              width: 100px;
+            "
+            src="http://imageshack.us/v2_images/home-hero2.jpg">
+            
+          <p>If you only scale one of the width or height, the browser will scale the other dimension proportionally.</p>
+        </div>
+        
+        <h3>Containers</h3>
+        <p>Group elements together with a <i>&lt;div&gt;</i>.</p>
+        
+        <p><i>&lt;div&gt;</i>s are the go-to element for organizing the layout of your page.</p>
+        
+        <h2>Element Layout</h2>
+        <p>Most HTML elements default to either an <i>inline</i> display or a <i>block</i> display.</p>
+        
+        <p>Elements that are displayed <i>inline</i> work like text: elements flow one after another on a line, and wrap if they reach the end of their container. They also take up as little horizontal space as possible by default.</p>
+        
+        <div class="example">
+          # Inline Elements
+          Links, bold text, images, and spans appear inline:
+          <a href="#">link</a>
+          <strong>bold</strong> 
+          <img 
+            style="
+              width: 100px;
+            "
+            src="http://imageshack.us/v2_images/home-hero2.jpg">
+          <span style="color: green">span</span>.
+        </div>
+        
+        <p>Elements that are displayed as <i>block</i>s render on their own line, breaking content before and after them, and they default to filling up the available width of their container.</p>
+        
+        <div class="example">
+          # Block Elements
+          Divs, headings, and paragraphs render as blocks:
+          <div style="background-color: #aaaaff; width: 50px; height: 20px;"></div>
+          <h5>My heading in the middle for some reason</h5>
+          <p>My paragraph of text after the heading.</p>
+          <p>Another paragraph of text.</p>
+        </div>
+        
+        <h3>Taking Control</h3>
+        <p>If you want an element to appear in-line with text, you use the <i>display: inline;</i> property:</p>
+        
+        <div class="example">
+          # Inline Element
+          This is my sentence with a
+          <div style="
+            display: inline;
+            background-color: #aaaaff;">blue inline element</div>
+          in it.
+        </div>
+        
+        By contrast, if you want an element to break text, use <i>display: block;</i>:
+        
+        <div class="example">
+          # Block Element
+          This is my sentence with a
+          <div style="
+            display: block;
+            background-color: #aaaaff;">text-breaking element</div>
+          in it.
+        </div>
+        
+        You can also wrap text around elements, using <i>float: left;</i> or <i>float: right;</i>. Note that you should place a floating element directly before the body of text it's supposed to "float" in.
+        
+        <div class="example">
+          # Floating Element
+          <img 
+            style="
+              float: left;
+              width: 100px;
+            "
+            src="http://imageshack.us/v2_images/home-hero2.jpg">
+          Lorem.
+        </div>
+        
+        <h2>Margins and Padding</h2>
+        <p>These are some of the most useful CSS properties you can apply to an element.</p>
+        
+        <p>To use margins or padding, your element can't be <i>inline</i>, so we use <i>inline-block</i> instead (which is basically the same as <i>inline</i> except you can use margins and padding).</p>
+        
+        <div class="example">
+          # Margins, Padding, and Borders
+          <div style="background-color: grey;">
+            <div style="
+              display: inline-block;
+              background-color: lightgrey;
+              margin: 20px;
+              ">
+              This is the first box. It has 20px margins.
+            </div>
+            <div style="
+              display: inline-block;
+              background-color: lightgrey;
+              padding: 20px;
+              ">
+              This is the first box. It has 20px padding.
+            </div>
+            <div style="
+              display: inline-block;
+              background-color: lightgrey;
+              margin: 5px;
+              padding: 15px;
+              ">
+              This box has 5px margins and 15px padding.
+            </div>
+            <div style="
+              display: inline-block;
+              background-color: lightgrey;
+              margin: 5px;
+              padding: 15px;
+              border: 2px solid blue;
+              ">
+              This box has 5px margins and 15px padding and a blue border.
+            </div>
+          </div>
+        </div>
+        
+        <p>Margins, paddings, and borders don't have to be uniform on all sides, and they can apply to any element, not just divs.</p>
+        
+        <div class="example">
+          # Margins, Padding, and Borders (cont.)
+          <div style="background-color: grey;">
+            <img 
+              style="
+                display: inline-block;
+                margin: 5px;
+                height: 30px;
+              "
+              src="http://imageshack.us/v2_images/home-hero2.jpg">
+            <div style="
+              display: inline-block;
+              background-color: lightgrey;
+              margin-bottom: 5px;
+              margin-top: 15px;
+              margin-left: 10px;
+              margin-right: 10px;
+              ">
+              This box has no padding, and different margins on different sides.
+            </div>
+            <a href="#" style="
+              border-top: thick dashed orange;
+              border-bottom: thin solid cyan;
+              color: white;
+            ">This link has a thick dashed border on top.</a>
+          </div>
+        </div>
+        
+        
+        <h2 id="page-layout">Page Layout</h2>
+        <p>My two favorite tools for page layout (or the layout of individual sub-components within a page) are <i>display: flex;</i> and <i>display: grid;</i>.</p>
+        
+        <h3>Flex Boxes</h3>
+        <p>Flex boxes give you all the power you need to arrange a single row or column of content. The obvious use-cases are things like navigation bars, but you can use them for other things too.</p>
+        
+        <p>For a complete guide look at <a href="https://www.w3schools.com/Css/css3_flexbox.asp">w3schools</a>, but here are some quick examples:</p>
+        
+        <div class="example">
+          # Centering an element inside its container:
+          <div style="
+              display: flex;
+              
+              align-items: center;
+              align-content: center;
+              justify-items: center;
+              justify-content: center;
+                            
+              background-color: lightgrey;
+              height: 100px;
+            ">
+            <img 
+              style="height: 50px;"
+              src="http://imageshack.us/v2_images/home-hero2.jpg" />
+          </div>
+        </div>
+        
+        <div class="example">
+          # Stretch contents of an item fill up remaining.
+          <div style="
+              display: flex;
+              
+              background-color: lightgrey;
+              text-align: center;
+            ">
+            <div style="border: thin solid #888888;">One</div>
+            <div style="border: thin solid #888888; flex-grow: 1;">Two</div>
+            <div style="border: thin solid #888888;">Three</div>
+          </div>
+        </div>
+        
+        <div class="example">
+          # Stretch contents of two items to fill up remaining space, but have the first one get 3 times as much space as the second.
+          <div style="
+              display: flex;
+              
+              background-color: lightgrey;
+              text-align: center;
+            ">
+            <div style="border: thin solid #888888; flex-grow: 3">One</div>
+            <div style="border: thin solid #888888; flex-grow: 1;">Two</div>
+            <div style="border: thin solid #888888;">Three</div>
+          </div>
+        </div>
+        
+        <h3>Grids</h3>
+        <p>Grids let you chunk up your page into arbitrary spaces.</p>
+        
+        <p>For a complete guide look at <a href="https://www.w3schools.com/CSS/css_grid.asp">w3schools</a>, but here are some quick examples:</p>
+        
+        <div class="example">
+          # Typical webpage layout:
+          <div style='
+              display: grid;
+              
+              grid-template-areas:
+                "logo     header   controls"
+                "sidebar  content  content"
+                "footer   footer   footer"
+              ;
+              
+              grid-template-rows: min-content 1fr min-content;
+              grid-template-columns: min-content 1fr min-content;
+              
+              background-color: lightgrey;
+            '>
+            <div style="
+              grid-area: logo;
+              
+              border: thin solid black;
+              text-align: center;
+              background-color: "grey">logo</div>
+              
+            <div style="
+              grid-area: content;
+              
+              border: thin solid black;
+              text-align: center;
+              background-color: "grey">main content</div>
+              
+            <div style="
+              grid-area: header;
+              
+              border: thin solid black;
+              text-align: center;
+              background-color: "grey">header goes here</div>
+              
+            <div style="
+              grid-area: controls;
+              
+              border: thin solid black;
+              text-align: center;
+              background-color: "grey">Login!</div>
+              
+            <div style="
+              grid-area: sidebar;
+              
+              border: thin solid black;
+              text-align: center;
+              background-color: "grey">
+              <ul><li>something</li><li>another thing</li></ul>
+            </div>
+              
+            <div style="
+              grid-area: footer;
+              
+              border: thin solid black;
+              text-align: center;
+              background-color: "grey">copyright notice I guess</div>
+              
+          </div>
+        </div>
+        
+        
+        <div class="example">
+          # Page with a header and three columns.
+          <div style='
+              display: grid;
+              
+              grid-template-areas:
+                "header  header  header"
+                "left    center  right"
+              ;
+              
+              grid-template-rows: 100px 1fr;
+              grid-template-columns: 1fr 3fr 1fr;
+              
+              background-color: lightgrey;
+              
+              min-height: 500px;
+            '>
+            <div style="
+              grid-area: header;
+              
+              border: thin solid black;
+              text-align: center;
+              background-color: "grey">This is my cool header that's 100 pixels tall.</div>
+              
+            <div style="
+              grid-area: left;
+              
+              border: thin solid black;
+              text-align: center;
+              background-color: "grey">left</div>
+              
+            <div style="
+              grid-area: center;
+              
+              border: thin solid black;
+              text-align: center;
+              background-color: "grey">center has 3/5ths of content</div>
+              
+            <div style="
+              grid-area: right;
+              
+              border: thin solid black;
+              text-align: center;
+              background-color: "grey">right</div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <script type="text/javascript">
+    let dedent = (text) => {
+      let lines = text.split('\n');
+      let indent = -1;
+      for (let i = 0; i < lines.length; i++) {
+        if (lines[i].trim().length === 0) {
+          continue;
+        }
+        let spaces = 0;
+        for (; spaces < lines[i].length && lines[i].charAt(spaces) === ' '; spaces++) {
+        }
+        if (indent < 0 || spaces < indent) {
+          indent = spaces;
+        }
+      }
+      return lines.map(line => {
+        if (line.trim().length === 0) return '';
+        return line.substring(indent);
+      }).join('\n');
+    };
+    
+    $(document).ready(() => {
+      setTimeout(() => {
+        $('.example').each((index, code) => {
+          let data = $(code).html();
+          data = data.replace('Lorem.', dedent(`
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          `));
+          let lines = data.split('\n').filter(l => l.trim().length > 0);
+          let title = 'Example';
+          if (lines && lines[0].trim().startsWith('#')) {
+            title = lines[0].trim().substring(1).trim();
+            lines = lines.filter((l, i) => i > 0);
+          }
+          data = lines.join('\n');
+          console.log(lines);
+          $(code).replaceWith($(`
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">${title}</h5>
+                <div class="card-title">Code</div>
+                <textarea readonly style="
+                  height: ${(data.split("\n").length+1)*20}px;">${dedent(data)}</textarea>
+                <hr>
+                <div class="card-title">Output</div>
+                <div class="bd-callout bd-callout-info">
+                  ${data}
+                </div>
+              </div>
+            </div>
+          `));
+        });
+      }, 100);
+    });
+    
+    $(function() {
+      var navSelector = "#toc";
+      var $myNav = $(navSelector);
+      Toc.init({
+        $nav: $myNav,
+        $scope: $('.main-content'),
+      });
+      $(".main-content").scrollspy({
+        target: navSelector
+      });
+    });
+    </script>
+  </body>
+</html>
