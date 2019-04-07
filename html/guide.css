@@ -18,6 +18,7 @@ body {
   ;
   
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .main-content {
@@ -33,6 +34,9 @@ body {
   grid-area: left;
   
   padding-left: 1rem;
+  
+  overflow-y: scroll;
+  height: 100vh;
 }
 
 i {
