@@ -58,7 +58,7 @@ pre.code {
   border: 0;
   width: 100%;
   
-  overflow-x: hidden;
+  overflow-x: scroll;
   overflow-y: hidden;
   
   white-space: pre;
