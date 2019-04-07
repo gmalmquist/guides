@@ -723,6 +723,95 @@
           </div>
         </div>
         
+        <h2>Advanced Examples</h2>
+        <p>These are specific examples that you won't run into for most projects.</p>
+        
+        <h3>Code Blocks</h3>
+        <p>To make the code blocks you see here, I used a <i>&lt;pre&gt;</i> element styled as monospaced with a grey background.</p>
+        
+        <p><i>&lt;pre&gt;</i> elements render text in a way that preserves the literal whitespace inside them (html normally ignores indentation and new lines, treating any amount of whitespace as a single space character).</p>
+        
+        <p>That's not enough, though. If in order to render raw html tags &lt;&gt;, you have to use HTML entities, to stop the browser from trying to render it.
+        
+        <div class="card">
+          <div class="card-body">
+            <h5>CSS</h5>
+            <p>The below CSS class applies to all <i>&lt;pre&gt;</i> elements that have <i>class="code"</i>.
+            <pre class="code">
+pre.code {
+  display: block;
+  background-color: #eeeeee;
+  font-family: monospace;
+  font-style: normal;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 0;
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: pre;
+  padding: 1em;
+  font-size: 1.1rem;
+}
+            </pre>
+          </div>
+        </div>
+        
+        <div class="example">
+          # HTML
+          # The below HTML defines a <i>&lt;pre&gt;</i> that renders some simple code.
+          <pre class="code">
+&lt;div&gt;
+  Some text inside the div.
+&lt;/div&gt;
+          </pre>
+        </div>
+        <p>And yes... to write the above example, I had to escape the <i>&amp;lt;</i>'s too, so they wouldn't just render as <i>&lt;</i>. I did that with <i>&amp;amp;lt;</i>.</p>
+        <p>For most of these examples I didn't do it by hand, I wrote some javascript to escape the html for me (feel free to inspect the source of this page to find that, this is getting too meta).</p>
+        
+        
+        <h3>Inline Code Snippets</h3>
+        <p>This is easier than code blocks, because we don't have to care as
+        much about the formatting.</p>
+        
+        In principle, it's a simple as:
+        <div class="example">
+          # CSS: &lt;span class="inline-code"&gt;
+          # Style all elements that have <i>class="inline-code"</i>.
+          .inline-code {
+            display: inline;
+            background-color: #dfdfdf;
+            font-family: monospace;
+            font-style: normal;
+            padding: 2px;
+          }
+        </div>
+        <div class="example">
+          # HTML: &lt;span class="inline-code"&gt;
+          <p>This is my sentence with some <span class="inline-code">&lt;code&gt;</span> in it.</p>
+        </div>
+        
+        <p>In practice, <i>&lt;span class="inline-code"&gt;</i> is a lot of typing. Instead, I did what a lot of coding websites do, and I repurposed the <i>&lt;i&gt;</i> element.</p>
+        
+        <p>The <i>&lt;i&gt;</i> element was originally made to do italics, but italics aren't very commonly used anymore on the web (so it's simple enough to just use a custom-styled <i>&lt;span&gt;</i> when you need it).</p>
+        
+        <p>So my code looks like:</p>
+        <div class="example">
+          # CSS: &lt;i&gt;
+          # Style all <i>&lt;i&gt;</i> elements.
+          i {
+            display: inline;
+            background-color: #dfdfdf;
+            font-family: monospace;
+            font-style: normal;
+            padding: 2px;
+          }
+        </div>
+        <div class="example">
+          # HTML &lt;i&gt;
+          <p>This is my sentence with some <i>&lt;code&gt;</i> in it.</p>
+        </div>
+        
       </div>
     </div>
     <script type="text/javascript">
@@ -755,6 +844,8 @@
     
     let escape = (text) => {
       return text
+        .replace(/&lt;/g, '&amp;lt;')
+        .replace(/&gt;/g, '&amp;gt;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
     };
@@ -766,28 +857,38 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         `));
         let lines = data.split('\n').filter(l => l.trim().length > 0);
-        let title = 'Example';
-        if (lines && lines[0].trim().startsWith('#')) {
-          title = lines[0].trim().substring(1).trim();
-          lines = lines.filter((l, i) => i > 0);
-        }
+        let title = lines.filter(line => line.trim().startsWith('# '))
+          .map(line => line.trim().substring(1).trim())[0] || 'Example';
+        let prose = lines
+          .filter((line, i) => i > 0)
+          .filter(line => line.trim().startsWith('# '))
+          .map(line => line.trim().substring(1).trim())
+          .join('\n');
+          
+          
+        lines = lines.filter(line => !line.trim().startsWith('# '));
         data = lines.join('\n');
+        let isHtml = data.indexOf('<') >= 0;
         $(code).replaceWith($(`
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">${title}</h5>
-              <div class="card-title">Code</div>
+              ${prose ? `<p>${prose}</p>` : ''}
+              ${isHtml ? `<div class="card-title">Code</div>` : ''}
               <pre class="code">${dedent(escape(data))}</pre>
+              ${isHtml ? `
               <hr>
               <div class="card-title">Output</div>
               <div class="bd-callout bd-callout-info">
                 ${data}
               </div>
+              ` : ''}
             </div>
           </div>
         `));
       });
       
+      let used = {};
       let lastLevel = 1;
       let indent = 0;
       walk($('.main-content')[0], node => {
@@ -815,6 +916,12 @@
         
         let title = node.innerHTML;
         let id = title.toLowerCase().trim().replace(/\W+/g, '-');
+        let baseId = id;
+        for (let i = 1; used.hasOwnProperty(id); i++) {
+          id = `${baseId}-${i + 1}`;
+        }
+        used[id] = true;
+        
         $(node).attr('id', id);
         
         $('#toc').append(`

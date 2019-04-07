@@ -80,3 +80,12 @@ pre.code {
 nav {
   margin-right: 1em;
 }
+
+/* To make example work. */
+.inline-code {
+  display: inline;
+  background-color: #dfdfdf;
+  font-family: monospace;
+  font-style: normal;
+  padding: 2px;
+}
