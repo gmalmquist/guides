@@ -73,6 +73,11 @@ pre.code {
   color: #0000dd;
 }
 
+.comment {
+  font-weight: bold;
+  color: #335533;
+}
+
 .card {
   margin-top: 2ex;
   margin-bottom: 2ex;

@@ -102,40 +102,40 @@
         
         <p><i>&lt;div&gt;</i>s are the go-to element for organizing the layout of your page.</p>
         
-        <div class="example">
+        <textarea class="example">
           # Div
-          <div style="
+          <[[div]] style="
             border: thin solid black;
             padding: 1ex;
           ">
             I'm in a div!
-          </div>
-          <div style="
+          </[[div]]>
+          <[[div]] style="
             border: thin solid black;
             padding: 1ex;
           ">
-            <div style="
+            <[[div]] style="
               border: thin solid black;
               padding: 1ex;
             ">
               I'm in a nested div!
-            </div>
-            <div style="
+            </[[div]]>
+            <[[div]] style="
               border: thin solid black;
               padding: 1ex;
             ">
               I'm in another nested div!
-            </div>
-          </div>
-        </div>
+            </[[div]]>
+          </[[div]]>
+        </textarea>
                 
         <h2>Less Common Elements</h2>
         <div class="example">
           # Ruler
           Use rulers to divide up 
-          <hr>
+          [[<hr>]]
           content
-          <hr>
+          [[<hr>]]
           like so.
         </div>
         
@@ -157,52 +157,137 @@
           </ul>
         </div>
         
-        <h2>Element Layout Basics</h2>
+        <h2>CSS Selectors</h2>
+        <p>Most of the examples I'm giving here just define the styling inline, but of course when you're doing things for real, you'll want to put the styling rules in an actual CSS file.</p>
+        
+        <p>You can find an extensive reference for these on <a href="https://www.w3schools.com/cssref/css_selectors.asp" target="blank_">w3schools</a>. I'm pretty sure you can style off any property you could think of. But here are the patterns I actually use.</p>
+        
+        <div class="example">
+          # Tag Selector
+          # For when you want to style everything with a particular <i>&lt;tag&gt;</i>, e.g. every link <i>&lt;a&gt;</i>.
+          a {
+            ...
+          }
+        </div>
+        
+        <div class="example">
+          # Id Selector
+          # For when you want to style the element with the particular id (e.g. <i>&lt;a id="foobar"&gt;</i>).
+          #foobar {
+            ...
+          }
+        </div>
+        
+        <div class="example">
+          # Class Selector
+          # For when you want to style an element that has a particular class (e.g. <i>&lt;a class="navigation"&gt;</i>).
+          .navigation {
+            ...
+          }
+        </div>
+        
+        <div class="example">
+          # Hover Selector
+          # For styling that should only apply when you're mousing over an element, use <i>:hover</i>.
+          # This selector has to modify a different one, I don't think it can be used separately.
+          .navigation[[:hover]] {
+            ...
+          }
+        </div>
+        
+        <div class="example">
+          # Conjunctions
+          # You can select the element that has multiple of the above through composition.
+          # For example, say you want to select specifically link elements that have the id <i>foobar</i>, the class <i>navigation</i>, and the class <i>active</i>.
+          a#foobar.navigation.active {
+            ...
+          }
+          % Note that you can't have spaces between these, or it means something different.
+          % I don't think the order matters, except the tag <i>a</i> might have to be first.
+        </div>
+        
+        <textarea class="example">
+          # Direct Children
+          # To match an element's direct child, use <i>&gt;</i>.
+          div.nav-bar [[&gt;]] a {
+            ...
+          }
+          % This will match all <i>a</i> elements that are direct children of a <i>div class="nav-bar"</i>.
+        </textarea>
+        
+        <textarea class="example">
+          # Nested Children
+          # To match an element's child, no matter how deeply nested, use a space <i>&nbsp;</i>:
+          div.nav-bar a {
+            ...
+          }
+          % This will match all <i>a</i> elements that any where under a <i>div class="nav-bar"</i>.
+        </textarea>
+        
+        <textarea class="example">
+          # All Children
+          # You can match all of an element's children using the wildcard <i>*</i>:
+          div.nav-bar > [[*]] {
+            ...
+          }
+          % This will match all elements that are direct children of a <i>div class="nav-bar"</i>.
+        </textarea>
+        
+        <div class="example">
+          # Subsequent Elements
+          # This will match any link <i>&lt;a&gt;</i> that appears immediately after a <i>&lt;div&lt;</i>, as in <i>&lt;div&gt;...&lt;/div&gt;&lt;a href="#"&gt;link&lt;/a&gt;</i>.
+          div [[+]] a {
+            ...
+          }
+          % This can be useful if you need to style every element in a list differently than the first one.</i>.
+        </div>
+        
+        <h2>Text Layout Basics</h2>
         <p>Most HTML elements default to either an <i>inline</i>/<i>inline-block</i> display or a <i>block</i> display.</p>
         
         <p>Elements that are displayed <i>inline</i> or <i>inline-block</i> work like text: elements flow one after another on a line, and wrap if they reach the end of their container. They also take up as little horizontal space as possible by default.</p>
         
-        <div class="example">
+        <textarea class="example">
           # Inline Elements
           Links, bold text, images, and spans appear inline:
-          <a href="#">link</a>
-          <strong>bold</strong> 
-          <img 
+          <[[a]] href="#">link</[[a]]>
+          <[[strong]]>bold</[[strong]]> 
+          <[[img]] 
             style="
               width: 100px;
             "
             src="http://imageshack.us/v2_images/home-hero2.jpg">
-          <span style="color: green">span</span>.
-        </div>
+          <[[span]] style="color: green">span</[[span]]>.
+        </textarea>
         
         <p>Inline elements are affected by the <i>text-align</i> attribute:</p>
         
         <div class="example">
           # Text Alignment
-          <div style="text-align: left;">Left</div>
-          <div style="text-align: center;">Center</div>
-          <div style="text-align: right">Right</div>
+          <div style="[[text-align: left;]]">Left</div>
+          <div style="[[text-align: center;]]">Center</div>
+          <div style="[[text-align: right;]]">Right</div>
         </div>
         
         <p>Elements that are displayed as <i>block</i>s render on their own line, breaking content before and after them, and they default to filling up the available width of their container.</p>
         
-        <div class="example">
+        <textarea class="example">
           # Block Elements
           Divs, headings, and paragraphs render as blocks:
-          <div style="background-color: #aaaaff; width: 50px; height: 20px;"></div>
-          <h6>My heading in the middle for some reason</h6>
-          <p>My paragraph of text after the heading.</p>
-          <p>Another paragraph of text.</p>
-        </div>
+          <[[div]] style="background-color: #aaaaff; width: 50px; height: 20px;"></[[div]]>
+          <[[h5]]>My heading in the middle for some reason</[[h5]]>
+          <[[p]]>My paragraph of text after the heading.</[[p]]>
+          <[[p]]>Another paragraph of text.</[[p]]>
+        </textarea>
         
-        <h3>Controlling the Layout</h3>
+        <h3>Controlling the Text Layout</h3>
         <p>If you want an element to appear in-line with text, you use the <i>display: inline;</i> property:</p>
         
         <div class="example">
           # Inline
           This is my sentence with a
           <div style="
-            display: inline;
+            [[display: inline;]]
             background-color: #aaaaff;">blue inline element</div>
           in it.
         </div>
@@ -211,20 +296,19 @@
         
         <div class="example">
           # Block
+          # Links normally are inline with text, but not this one!
           This is my sentence with a
-          <div style="
-            display: block;
-            background-color: #aaaaff;">text-breaking element</div>
+          <a style="[[display: block;]]"
+            href="about:blank" target="blank_">text-breaking link</a>
           in it.
         </div>
         
-        You can also wrap text around elements, using <i>float: left;</i> or <i>float: right;</i>. Note that you should place a floating element directly before the body of text it's supposed to "float" in.
-        
         <div class="example">
-          # Floating
+          # Wrap text around element
+          # You can also wrap text around elements, using <i>float: left;</i> or <i>float: right;</i>. Note that you should place a floating element directly before the body of text it's supposed to "float" in.
           <img 
             style="
-              float: left;
+              [[float: left;]]
               width: 100px;
             "
             src="http://imageshack.us/v2_images/home-hero2.jpg">
@@ -244,31 +328,31 @@
             <div style="
               display: inline-block;
               background-color: lightgrey;
-              margin: 20px;
+              [[margin: 20px;]]
               ">
               This is the first box. It has 20px margins.
             </div>
             <div style="
               display: inline-block;
               background-color: lightgrey;
-              padding: 20px;
+              [[padding: 20px;]]
               ">
               This is the first box. It has 20px padding.
             </div>
             <div style="
               display: inline-block;
               background-color: lightgrey;
-              margin: 5px;
-              padding: 15px;
+              [[margin: 5px;
+              padding: 15px;]]
               ">
               This box has 5px margins and 15px padding.
             </div>
             <div style="
               display: inline-block;
               background-color: lightgrey;
-              margin: 5px;
+              [[margin: 5px;
               padding: 15px;
-              border: 2px solid blue;
+              border: 2px solid blue;]]
               ">
               This box has 5px margins and 15px padding and a blue border.
             </div>
@@ -283,23 +367,23 @@
             <img 
               style="
                 display: inline-block;
-                margin: 5px;
+                [[margin: 5px;]]
                 height: 30px;
               "
               src="http://imageshack.us/v2_images/home-hero2.jpg">
             <div style="
               display: inline-block;
               background-color: lightgrey;
-              margin-bottom: 5px;
+              [[margin-bottom: 5px;
               margin-top: 15px;
               margin-left: 10px;
-              margin-right: 10px;
+              margin-right: 10px;]]
               ">
               This box has no padding, and different margins on different sides.
             </div>
             <a href="#" style="
-              border-top: thick dashed orange;
-              border-bottom: thin solid cyan;
+              [[border-top: thick dashed orange;
+              border-bottom: thin solid cyan;]]
               color: white;
             ">This link has a thick dashed border on top.</a>
           </div>
@@ -309,6 +393,8 @@
         <h2 id="page-layout">Page Layout</h2>
         <p>My two favorite tools for page layout (or the layout of individual sub-components within a page) are <i>display: flex;</i> and <i>display: grid;</i>.</p>
         
+        <p>It turns out w3schools also has some pre-built example website templates using flex and grid layouts, which you can check out <a href="https://www.w3schools.com/CSS/css_templates.asp">here</a>.</p>
+        
         <h3>Flex Boxes</h3>
         <p>Flex boxes give you all the power you need to arrange a single row or column of content. The obvious use-cases are things like navigation bars, but you can use them for other things too.</p>
         
@@ -317,12 +403,12 @@
         <div class="example">
           # Centering an element inside its container.
           <div style="
-              display: flex;
+              [[display: flex;
               
               align-items: center;
               align-content: center;
               justify-items: center;
-              justify-content: center;
+              justify-content: center;]]
                             
               background-color: lightgrey;
               height: 100px;
@@ -336,13 +422,13 @@
         <div class="example">
           # Filling remaining space.
           <div style="
-              display: flex;
+              [[display: flex;]]
               
               background-color: lightgrey;
               text-align: center;
             ">
             <div style="border: thin solid #888888;">One</div>
-            <div style="border: thin solid #888888; flex-grow: 1;">Two</div>
+            <div style="border: thin solid #888888; [[flex-grow: 1;]]">Two</div>
             <div style="border: thin solid #888888;">Three</div>
           </div>
         </div>
@@ -350,13 +436,13 @@
         <div class="example">
           # Filling remaining space unevenly.
           <div style="
-              display: flex;
+              [[display: flex;]]
               
               background-color: lightgrey;
               text-align: center;
             ">
-            <div style="border: thin solid #888888; flex-grow: 3">One</div>
-            <div style="border: thin solid #888888; flex-grow: 1;">Two</div>
+            <div style="border: thin solid #888888; [[flex-grow: 3;]]">One</div>
+            <div style="border: thin solid #888888; [[flex-grow: 1;]]">Two</div>
             <div style="border: thin solid #888888;">Three</div>
           </div>
         </div>
@@ -364,8 +450,8 @@
         <div class="example">
           # Column of content.
           <div style="
-              display: flex;
-              flex-direction: column;
+              [[display: flex;
+              flex-direction: column;]]
               
               background-color: lightgrey;
               text-align: center;
@@ -383,12 +469,12 @@
             </div>
             <div style="
               border: thin solid #888888; 
-              flex-grow: 1;">
+              [[flex-grow: 1;]]">
               fill 1/3 of remaining space
             </div>
             <div style="
               border: thin solid #888888; 
-              flex-grow: 2;">
+              [[flex-grow: 2;]]">
               fill 2/3 of remaining space
             </div>
             <div style="
@@ -401,17 +487,17 @@
         <div class="example">
           # Row of columns with different alignments.
           <div style="
-              display: flex;
-              flex-direction: row;
+              [[display: flex;
+              flex-direction: row;]]
             ">
             <div style="
-                display: flex;
-                flex-direction: column;
+                [[display: flex;
+                flex-direction: column;]]
                 
                 background-color: lightgrey;
                 text-align: center;
                 
-                align-items: start;
+                [[align-items: start;]]
                 
                 height: 500px;
               ">
@@ -426,20 +512,20 @@
               </div>
               <div style="
                 border: thin solid #888888; 
-                flex-grow: 1;">
+                [[flex-grow: 1;]]">
                 fill remaining space
               </div>
             </div>
             
             
             <div style="
-                display: flex;
-                flex-direction: column;
+                [[display: flex;
+                flex-direction: column;]]
                 
                 background-color: lightgrey;
                 text-align: center;
                 
-                align-items: center;
+                [[align-items: center;]]
                 
                 height: 500px;
               ">
@@ -454,20 +540,20 @@
               </div>
               <div style="
                 border: thin solid #888888; 
-                flex-grow: 1;">
+                [[flex-grow: 1;]]">
                 fill remaining space
               </div>
             </div>
             
             
             <div style="
-                display: flex;
-                flex-direction: column;
+                [[display: flex;
+                flex-direction: column;]]
                 
                 background-color: lightgrey;
                 text-align: center;
                 
-                align-items: flex-end;
+                [[align-items: flex-end;]]
                 
                 height: 500px;
               ">
@@ -482,7 +568,7 @@
               </div>
               <div style="
                 border: thin solid #888888; 
-                flex-grow: 1;">
+                [[flex-grow: 1;]]">
                 fill remaining space
               </div>
             </div>
@@ -494,52 +580,67 @@
         
         <p>For a complete guide look at <a href="https://www.w3schools.com/CSS/css_grid.asp">w3schools</a>, but here are some quick examples:</p>
         
-        <div class="example">
+        <textarea class="example">
           # Standard page with sidebar.
+          # There are a <span style="font-style: italic;">lot</span> of ways to define css grids.
+          # Below is my favorite way. You use a <i>grid-template-areas:</i> string to define "areas" in your grid. If you specify the same area multiple times in adjacent cells, the area can fill up multiple grid cells.
+          # In the below example, we define a 3x3 grid. There's a <i>logo</i> area that takes up the top-left cell, a <i>header</i> area that takes up the top-center cell, a <i>content</i> area that takes up the two center cells right of the sidebar, etc.
+          # One of the neat things about defining grids is that the child elements can be defined in any order, since their position is entirely determined by their <i>grid-area: ...</i> css property.
           <div style='
-              display: grid;
+              ['''/* Declare that this container is a grid. */''']
+              [[display: grid;]]
               
-              grid-template-areas:
+              ['''/* Define areas. */''']
+              [[grid-template-areas:
                 "logo     header   controls"
                 "sidebar  content  content"
                 "footer   footer   footer"
-              ;
+              ;]]
               
-              grid-template-rows: min-content 1fr min-content;
-              grid-template-columns: min-content 1fr min-content;
+              ['''/* 
+               * Define the heights of the rows. 
+               *
+               * Here the top and bottom row will be sized as small as
+               * they can be while still fitting their contents, and the 
+               * middle row will expand to fill the remaining space.
+               */''']
+              [[grid-template-rows: min-content 1fr min-content;]]
+              
+              ['''/* Define the widths of the columns. */''']
+              [[grid-template-columns: min-content 1fr min-content;]]
               
               background-color: lightgrey;
             '>
             <div style="
-              grid-area: logo;
+              [[grid-area: logo;]]
               
               border: thin solid black;
               text-align: center;
               background-color: "grey">logo</div>
               
             <div style="
-              grid-area: content;
+              [[grid-area: content;]]
               
               border: thin solid black;
               text-align: center;
               background-color: "grey">main content</div>
               
             <div style="
-              grid-area: header;
+              [[grid-area: header;]]
               
               border: thin solid black;
               text-align: center;
               background-color: "grey">header goes here</div>
               
             <div style="
-              grid-area: controls;
+              [[grid-area: controls;]]
               
               border: thin solid black;
               text-align: center;
               background-color: "grey">Login!</div>
               
             <div style="
-              grid-area: sidebar;
+              [[grid-area: sidebar;]]
               
               border: thin solid black;
               text-align: center;
@@ -548,113 +649,137 @@
             </div>
               
             <div style="
-              grid-area: footer;
-              
+              [[grid-area: footer;]]
+             
               border: thin solid black;
               text-align: center;
               background-color: "grey">copyright notice I guess</div>
               
           </div>
-        </div>
+        </textarea>
         
         
-        <div class="example">
+        <textarea class="example">
           # Header and three columns.
           <div style='
-              display: grid;
+              [[display: grid;]]
               
-              grid-template-areas:
+              [[grid-template-areas:
                 "header  header  header"
                 "left    center  right"
-              ;
+              ;]]
               
-              grid-template-rows: 100px 1fr;
-              grid-template-columns: 1fr 3fr 1fr;
+              ['''/*
+               * Here the first row is fixed to 100px tall, and
+               * the second row is given the rest of the vertical space.
+               */''']
+              [[grid-template-rows: 100px 1fr;]]
+              ['''/*
+               * The first and last column each get 1/5th of the free
+               * space, and the middle column gets 3/5ths of it.
+               */''']
+              [[grid-template-columns: 1fr 3fr 1fr;]]
               
               background-color: lightgrey;
               
               min-height: 500px;
             '>
             <div style="
-              grid-area: header;
+              [[grid-area: header;]]
               
               border: thin solid black;
               text-align: center;
               background-color: "grey">This is my cool header that's 100 pixels tall.</div>
               
             <div style="
-              grid-area: left;
+              [[grid-area: left;]]
               
               border: thin solid black;
               text-align: center;
               background-color: "grey">left</div>
               
             <div style="
-              grid-area: center;
+              [[grid-area: center;]]
+              
+              ['''/* center the text horizontally and vertically, just for fun */''']
+              display: flex;
+              align-items: center;
+              align-content: center;
+              justify-items: center;
+              justify-content: center;
+              text-align: center;
               
               border: thin solid black;
-              text-align: center;
               background-color: "grey">center has 3/5ths of content</div>
               
             <div style="
-              grid-area: right;
+              [[grid-area: right;]]
               
+              background-image: url('http://imageshack.us/v2_images/home-hero2.jpg');
               border: thin solid black;
               text-align: center;
-              background-color: "grey">right</div>
+              ">Right</div>
           </div>
-        </div>
+        </textarea>
         
         <h2>Cosmetic Styling Rules</h2>
-        <div class="example">
+        <textarea class="example">
           # Opacity
           <div style="background-color: lightgrey; padding: 1em;">
-            <div style="opacity: 0.8">80% opacity (20% transparency)</div>
-            <div style="opacity: 0.4">40% opacity (60% transparency)</div>
+            <div [[style="opacity: 0.8"]]>80% opacity (20% transparency)</div>
+            <div [[style="opacity: 0.4"]]>40% opacity (60% transparency)</div>
           </div>
-        </div>
+        </textarea>
         
         <div class="example">
           # Text-Decoration
           <div style="background-color: lightgrey; padding: 1em;">
-            <div style="text-decoration: none;">This is the default (except for links).</div>
-            <div style="text-decoration: underline;">text-decoration: underline</div>
+            <div style="[[text-decoration: none;]]">This is the default (except for links).</div>
+            <div style="[[text-decoration: underline;]]">text-decoration: underline</div>
           </div>
         </div>
         
         <div class="example">
           # Text Color
           <div style="background-color: lightgrey; padding: 1em;">
-            <div style="color: white;">White</div>
-            <div style="color: #ff8800;">Orange</div>
-            <div style="color: rgba(0, 0, 255, 0.5);">Translucent Blue</div>
-            <div style="color: hsl(120, 90%, 10%);">Dark green</div>
+            <div style="[[color: white;]]">White</div>
+            <div style="[[color: #ff8800;]]">Orange</div>
+            <div style="[[color: rgba(0, 0, 255, 0.5);]]">Translucent Blue</div>
+            <div style="[[color: hsl(120, 90%, 10%);]]">Dark green</div>
           </div>
         </div>
         
         <div class="example">
           # Background Color
-          <div style="background-color: red;">Red</div>
-          <div style="background-color: #ff8800;">Orange</div>
-          <div style="background-color: rgba(0, 0, 255, 0.5);">Translucent Blue</div>
-          <div style="background-color: hsl(120, 90%, 10%);">Dark green</div>
+          <div style="[[background-color: red;]]">Red</div>
+          <div style="[[background-color: #ff8800;]]">Orange</div>
+          <div style="[[background-color: rgba(0, 0, 255, 0.5);]]">Translucent Blue</div>
+          <div style="[[background-color: hsl(120, 90%, 10%);]]">Dark green</div>
         </div>
         
         <div class="example">
           # Fonts
-          <div style="font-family: monospace;">monospace</div>
-          <div style="font-family: serif;">serif</div>
-          <div style="font-family: sans-serif;">sans-serif</div>
-          <div style="font-size: 1.5rem;">bigger</div>
-          <div style="font-size: 0.5rem;">smaller</div>
-          <div style="font-style: italic;">italic</div>
-          <div style="font-weight: bold;">bold</div>
+          <div style="[[font-family: monospace;]]">monospace</div>
+          <div style="[[font-family: serif;]]">serif</div>
+          <div style="[[font-family: sans-serif;]]">sans-serif</div>
+          <div style="[[font-size: 1.5rem;]]">bigger</div>
+          <div style="[[font-size: 0.5rem;]]">smaller</div>
+          <div style="[[font-style: italic;]]">italic</div>
+          <div style="[[font-weight: bold;]]">bold</div>
         </div>
         
-        <div class="example">
+        <textarea class="example">
           # Fixed-height container with scrollbar
           <div style="
-            overflow-y: scroll; 
+            ['''/*
+             * Other options are:
+             * 'hidden' (just crop off extra content)
+             * 'visible' (the default)
+             *
+             * And of course you can also define these
+             * for 'overflow-x', or just 'overflow'.
+             */''']
+            [[overflow-y: scroll]]; 
             height: 100px;">
             <ol>
               <li>one</li>
@@ -674,13 +799,13 @@
               <li>fifteen</li>
             </ol>
           </div>
-        </div>
+        </textarea>
         
         <div class="example">
           # Container that clips overflowing content.
           <div style="
-            overflow-x: hidden;
-            overflow-y: hidden;
+            [[overflow-x: hidden;
+            overflow-y: hidden;]]
             width: 200px;
             height: 100px;
             ">
@@ -691,7 +816,7 @@
         <div class="example">
           # Container with a background image.
           <div style="
-            background-image: url('http://imageshack.us/v2_images/home-hero2.jpg');
+            [[background-image: url('http://imageshack.us/v2_images/home-hero2.jpg');]]
             height: 100px;
             ">
           </div>
@@ -699,23 +824,28 @@
         
         <div class="example">
           # Cursor control.
-          <div style="cursor: default;    border: thin solid black;">default</div>
-          <div style="cursor: pointer;    border: thin solid black;">pointer</div>
-          <div style="cursor: move;       border: thin solid black;">move</div>
-          <div style="cursor: crosshair;  border: thin solid black;">crosshair</div>
-          <div style="cursor: ns-resize;  border: thin solid black;">ns-resize</div>
-          <div style="cursor: text;       border: thin solid black;">text</div>
-          <div style="cursor: wait;       border: thin solid black;">wait</div>
-          <div style="cursor: none;       border: thin solid black;">none</div>
-          <div style="cursor: grab;       border: thin solid black;">grab</div>
+          <div style="[[cursor: default;]]    border: thin solid black;">default</div>
+          <div style="[[cursor: pointer;]]    border: thin solid black;">pointer</div>
+          <div style="[[cursor: move;]]       border: thin solid black;">move</div>
+          <div style="[[cursor: crosshair;]]  border: thin solid black;">crosshair</div>
+          <div style="[[cursor: ns-resize;]]  border: thin solid black;">ns-resize</div>
+          <div style="[[cursor: text;]]       border: thin solid black;">text</div>
+          <div style="[[cursor: wait;]]       border: thin solid black;">wait</div>
+          <div style="[[cursor: none;]]       border: thin solid black;">none</div>
+          <div style="[[cursor: grab;]]       border: thin solid black;">grab</div>
         </div>
         
         <div class="example">
           # Text Wrapping
-          <div style="overflow-x: hidden; width: 80vw;">
-            <div style="white-space: nowrap;">No-Wrap: Lorem.</div>
+          # This is really useful for certain UI elements, like links in a navigation menu that you don't want to wrap ever.
+          <div style="overflow-x: hidden; max-width: 80vw;">
+            <div style="[[white-space: nowrap;]] border: thin solid black;">
+              No-Wrap: Lorem.
+            </div>
             <hr>
-            <div style="white-space: wrap;">Wrap: Lorem.</div>
+            <div style="[[white-space: wrap;]] border: thin solid black;">
+              Wrap: Lorem.
+            </div>
           </div>
         </div>
         
@@ -729,28 +859,24 @@
         
         <p>That's not enough, though. If in order to render raw html tags &lt;&gt;, you have to use HTML entities, to stop the browser from trying to render it.
         
-        <div class="card">
-          <div class="card-body">
-            <h5>CSS</h5>
-            <p>The below CSS class applies to all <i>&lt;pre&gt;</i> elements that have <i>class="code"</i>.
-            <pre class="code">
-pre.code {
-  display: block;
-  background-color: #eeeeee;
-  font-family: monospace;
-  font-style: normal;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  border: 0;
-  width: 100%;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: pre;
-  padding: 1em;
-  font-size: 1.1rem;
-}
-            </pre>
-          </div>
+        <div class="example">
+          # CSS
+          # The below CSS class applies to all <i>&lt;pre&gt;</i> elements that have <i>class="code"</i>.
+          pre.code {
+            display: block;
+            background-color: #eeeeee;
+            font-family: monospace;
+            font-style: normal;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 0;
+            width: 100%;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: pre;
+            padding: 1em;
+            font-size: 1.1rem;
+          }
         </div>
         
         <div class="example">
@@ -863,11 +989,21 @@ pre.code {
       if (forCodeSample) {
         return dedent(escape(text))
           .replace(/\[\[/g, '<span class="important-code">')
-          .replace(/\]\]/g, '</span>');
+          .replace(/\]\]/g, '</span>')
+          .replace(/\['''/g, '<span class="comment">')
+          .replace(/'''\]/g, '</span>');
       }
-      return text
+      if (text.indexOf('logo') >= 0) {
+        console.log(text);
+      }
+      let x = text
+        .replace(/\['''.*?'''\]/gms, '')
         .replace(/\[\[/g, '')
         .replace(/\]\]/g, '');
+      if (text.indexOf('logo') >= 0) {
+        console.log(x);
+      }
+      return x;
     };
     
     $(document).ready(() => {
@@ -886,10 +1022,20 @@ pre.code {
           .filter(line => line.trim().startsWith('# '))
           .map(line => line.trim().substring(1).trim())
           .join('\n');
+        let footnotes = lines
+          .filter(line => line.trim().startsWith('% '))
+          .map(line => line.trim().substring(1).trim())
+          .join('\n');
           
           
-        lines = lines.filter(line => !line.trim().startsWith('# '));
+        lines = lines
+          .filter(line => !line.trim().startsWith('# '))
+          .filter(line => !line.trim().startsWith('% '));
         data = lines.join('\n');
+        
+        if (prose.indexOf('elements that have') >= 0) {
+          console.log(prose);
+        }
         
         let isHtml = data.indexOf('<') >= 0;
         $(code).replaceWith($(`
@@ -906,6 +1052,7 @@ pre.code {
                 ${formatCode(data, false)}
               </div>
               ` : ''}
+              ${footnotes ? `<p>${footnotes.split('\n').join('</p><p>')}</p>` : ''}
             </div>
           </div>
         `));
