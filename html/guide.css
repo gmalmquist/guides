@@ -48,7 +48,7 @@ i {
   padding: 2px;
 }
 
-textarea {
+pre.code {
   display: block;
   background-color: #eeeeee;
   font-family: monospace;
@@ -64,7 +64,8 @@ textarea {
   white-space: pre;
   
   padding: 1em;
-  padding-bottom: 2em;
+  
+  font-size: 1.1rem;
 }
 
 .card {

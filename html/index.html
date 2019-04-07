@@ -753,6 +753,12 @@
       }
     };
     
+    let escape = (text) => {
+      return text
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    };
+    
     $(document).ready(() => {
       $('.example').each((index, code) => {
         let data = $(code).html();
@@ -771,8 +777,7 @@
             <div class="card-body">
               <h5 class="card-title">${title}</h5>
               <div class="card-title">Code</div>
-              <textarea readonly style="
-                height: ${(data.split("\n").length+1)*20}px;">${dedent(data)}</textarea>
+              <pre class="code">${dedent(escape(data))}</pre>
               <hr>
               <div class="card-title">Output</div>
               <div class="bd-callout bd-callout-info">
