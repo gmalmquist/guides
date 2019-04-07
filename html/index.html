@@ -66,28 +66,24 @@
         
         <div class="example">
           # Anchor Link
-          <a href="#top">Navigate to the element with <i>id="top"</i></a>
+          <a href="[[#top]]">Navigate to the element with <i>id="top"</i></a>
         </div>
         
-        <div class="example">
+        <textarea class="example">
           # New Tab
-          <a href="http://google.com" target="blank_">Open google in a new tab.</a>
-        </div>
+          <a href="http://google.com" [[target="blank_"]]>Open google in a new tab.</a>
+        </textarea>
         
         <h3>Images</h3>
         <p>Images use the <i>&lt;img&gt;</i>.</p>
         
         <div class="example">
           # Image
-          Here's an image. By default it'd be too big so I used some css styling to make it smaller.
-          
+          # Here's an image. By default it'd be too big so I used some css styling to make it smaller.
+          # If you only scale one of the width or height, the browser will scale the other dimension proportionally.
           <img 
-            style="
-              width: 100px;
-            "
-            src="http://imageshack.us/v2_images/home-hero2.jpg">
-            
-          <p>If you only scale one of the width or height, the browser will scale the other dimension proportionally.</p>
+            style="[[width: 100px;]]"
+            [[src]]="http://imageshack.us/v2_images/home-hero2.jpg">
         </div>
         
         <h3>Text</h3>
@@ -97,7 +93,7 @@
         
         <div class="example">
           # Span
-          This is my sentence where <span style="color: blue;">some words</span> are
+          This is my sentence where [[<span style="color: blue;">]]some words[[</span>]] are
           different colors from <span style="color: red">other</span> words.
         </div>
         
@@ -842,6 +838,19 @@ pre.code {
       }
     };
     
+    let argmin = (array, func) => {
+      let minKey = null;
+      let minValue = 0;
+      array.forEach(key => {
+        let value = func(key);
+        if (minKey === null || value < minValue) {
+          minKey = key;
+          minValue = value;
+        }
+      });
+      return minKey;
+    };
+    
     let escape = (text) => {
       return text
         .replace(/&lt;/g, '&amp;lt;')
@@ -850,9 +859,22 @@ pre.code {
         .replace(/>/g, '&gt;');
     };
     
+    let formatCode = (text, forCodeSample) => {
+      if (forCodeSample) {
+        return dedent(escape(text))
+          .replace(/\[\[/g, '<span class="important-code">')
+          .replace(/\]\]/g, '</span>');
+      }
+      return text
+        .replace(/\[\[/g, '')
+        .replace(/\]\]/g, '');
+    };
+    
     $(document).ready(() => {
       $('.example').each((index, code) => {
-        let data = $(code).html();
+        let data = code.tagName === 'TEXTAREA'
+          ? $(code).val() : $(code).html();
+          
         data = data.replace(/Lorem./g, dedent(`
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         `));
@@ -868,19 +890,20 @@ pre.code {
           
         lines = lines.filter(line => !line.trim().startsWith('# '));
         data = lines.join('\n');
+        
         let isHtml = data.indexOf('<') >= 0;
         $(code).replaceWith($(`
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">${title}</h5>
-              ${prose ? `<p>${prose}</p>` : ''}
+              ${prose ? `<p>${prose.split('\n').join('</p><p>')}</p>` : ''}
               ${isHtml ? `<div class="card-title">Code</div>` : ''}
-              <pre class="code">${dedent(escape(data))}</pre>
+              <pre class="code">${formatCode(data, true)}</pre>
               ${isHtml ? `
               <hr>
               <div class="card-title">Output</div>
               <div class="bd-callout bd-callout-info">
-                ${data}
+                ${formatCode(data, false)}
               </div>
               ` : ''}
             </div>
@@ -942,6 +965,16 @@ pre.code {
           $('.main-content').scrollTop(el.offset().top);
         }
       }
+      
+      $('.main-content').scroll(() => {
+        let anchorIds = Object.keys(used).map(id => `#${id}`);
+        let closest = argmin(anchorIds, id => Math.abs($(id).offset().top));
+        if (window.top.location.href !== closest) {
+          history.pushState(null, null, closest);
+        }
+        $(`.nav-link[href='${closest}']`).attr('class', 'nav-link active');
+        $(`.nav-link[href!='${closest}']`).attr('class', 'nav-link');
+      });
     });
     
     </script>
