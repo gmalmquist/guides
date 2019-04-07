@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Basic HTML/CSS Cookbook</title>
+    <title>HTML/CSS Cookbook</title>
     
     <!-- Bootstrap stuff -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -23,10 +23,10 @@
   <body>
     <div class="page-wrapper">
       <div class="sidebar">
-        <nav id="toc" class="sticky-top"></nav>
+        <nav id="toc"></nav>
       </div>
       <div class="main-content">
-        <h1 id="top">Basic HTML/CSS Cookbook</h1>
+        <h1 id="top">HTML/CSS Cookbook</h1>
         <p>
           This is a collection of common recipes I use to do web development 
           stuff using vanilla HTML and CSS.
@@ -37,7 +37,8 @@
           for you.
         </p>
         
-        <h2>Basic HTML Elements</h2>
+        <h2>Element Toolbox</h2>
+        <p>Which HTML elements to use to accomplish various tasks.</p>
         
         <h3>Headings</h3>
         <p><i>&lt;h1&gt;</i> <i>&lt;h2&gt;</i> <i>&lt;h3&gt;</i> ...</p>
@@ -89,11 +90,49 @@
           <p>If you only scale one of the width or height, the browser will scale the other dimension proportionally.</p>
         </div>
         
+        <h3>Text</h3>
+        <p>Sometimes you want to style a piece of text that does neatly fall into a heading or a paragraph.</p>
+        
+        <p>For this, you want to use a <i>&lt;span&gt;</i>.
+        
+        <div class="example">
+          # Span
+          This is my sentence where <span style="color: blue;">some words</span> are
+          different colors from <span style="color: red">other</span> words.
+        </div>
+        
         <h3>Containers</h3>
         <p>Group elements together with a <i>&lt;div&gt;</i>.</p>
         
         <p><i>&lt;div&gt;</i>s are the go-to element for organizing the layout of your page.</p>
         
+        <div class="example">
+          # Div
+          <div style="
+            border: thin solid black;
+            padding: 1ex;
+          ">
+            I'm in a div!
+          </div>
+          <div style="
+            border: thin solid black;
+            padding: 1ex;
+          ">
+            <div style="
+              border: thin solid black;
+              padding: 1ex;
+            ">
+              I'm in a nested div!
+            </div>
+            <div style="
+              border: thin solid black;
+              padding: 1ex;
+            ">
+              I'm in another nested div!
+            </div>
+          </div>
+        </div>
+                
         <h2>Less Common Elements</h2>
         <div class="example">
           # Ruler
@@ -122,10 +161,10 @@
           </ul>
         </div>
         
-        <h2>Element Layout</h2>
-        <p>Most HTML elements default to either an <i>inline</i> display or a <i>block</i> display.</p>
+        <h2>Element Layout Basics</h2>
+        <p>Most HTML elements default to either an <i>inline</i>/<i>inline-block</i> display or a <i>block</i> display.</p>
         
-        <p>Elements that are displayed <i>inline</i> work like text: elements flow one after another on a line, and wrap if they reach the end of their container. They also take up as little horizontal space as possible by default.</p>
+        <p>Elements that are displayed <i>inline</i> or <i>inline-block</i> work like text: elements flow one after another on a line, and wrap if they reach the end of their container. They also take up as little horizontal space as possible by default.</p>
         
         <div class="example">
           # Inline Elements
@@ -140,22 +179,31 @@
           <span style="color: green">span</span>.
         </div>
         
+        <p>Inline elements are affected by the <i>text-align</i> attribute:</p>
+        
+        <div class="example">
+          # Text Alignment
+          <div style="text-align: left;">Left</div>
+          <div style="text-align: center;">Center</div>
+          <div style="text-align: right">Right</div>
+        </div>
+        
         <p>Elements that are displayed as <i>block</i>s render on their own line, breaking content before and after them, and they default to filling up the available width of their container.</p>
         
         <div class="example">
           # Block Elements
           Divs, headings, and paragraphs render as blocks:
           <div style="background-color: #aaaaff; width: 50px; height: 20px;"></div>
-          <h5>My heading in the middle for some reason</h5>
+          <h6>My heading in the middle for some reason</h6>
           <p>My paragraph of text after the heading.</p>
           <p>Another paragraph of text.</p>
         </div>
         
-        <h3>Taking Control</h3>
+        <h3>Controlling the Layout</h3>
         <p>If you want an element to appear in-line with text, you use the <i>display: inline;</i> property:</p>
         
         <div class="example">
-          # Inline Element
+          # Inline
           This is my sentence with a
           <div style="
             display: inline;
@@ -166,7 +214,7 @@
         By contrast, if you want an element to break text, use <i>display: block;</i>:
         
         <div class="example">
-          # Block Element
+          # Block
           This is my sentence with a
           <div style="
             display: block;
@@ -177,7 +225,7 @@
         You can also wrap text around elements, using <i>float: left;</i> or <i>float: right;</i>. Note that you should place a floating element directly before the body of text it's supposed to "float" in.
         
         <div class="example">
-          # Floating Element
+          # Floating
           <img 
             style="
               float: left;
@@ -187,13 +235,15 @@
           Lorem.
         </div>
         
-        <h2>Margins and Padding</h2>
+        <p>You've probably noticed that the image here doesn't appear to have enough space between it and the text. To fix that, we need to add a <i>margin-right: ...;</i> styling rule (<a href="#example-2">see below</a>).
+        
+        <h2>Margins, Padding, and Borders</h2>
         <p>These are some of the most useful CSS properties you can apply to an element.</p>
         
         <p>To use margins or padding, your element can't be <i>inline</i>, so we use <i>inline-block</i> instead (which is basically the same as <i>inline</i> except you can use margins and padding).</p>
         
         <div class="example">
-          # Margins, Padding, and Borders
+          # Example 1
           <div style="background-color: grey;">
             <div style="
               display: inline-block;
@@ -232,7 +282,7 @@
         <p>Margins, paddings, and borders don't have to be uniform on all sides, and they can apply to any element, not just divs.</p>
         
         <div class="example">
-          # Margins, Padding, and Borders (cont.)
+          # Example 2
           <div style="background-color: grey;">
             <img 
               style="
@@ -269,7 +319,7 @@
         <p>For a complete guide look at <a href="https://www.w3schools.com/Css/css3_flexbox.asp">w3schools</a>, but here are some quick examples:</p>
         
         <div class="example">
-          # Centering an element inside its container:
+          # Centering an element inside its container.
           <div style="
               display: flex;
               
@@ -288,7 +338,7 @@
         </div>
         
         <div class="example">
-          # Stretch contents of an item fill up remaining.
+          # Filling remaining space.
           <div style="
               display: flex;
               
@@ -302,7 +352,7 @@
         </div>
         
         <div class="example">
-          # Stretch contents of two items to fill up remaining space, but have the first one get 3 times as much space as the second.
+          # Filling remaining space unevenly.
           <div style="
               display: flex;
               
@@ -315,13 +365,141 @@
           </div>
         </div>
         
+        <div class="example">
+          # Column of content.
+          <div style="
+              display: flex;
+              flex-direction: column;
+              
+              background-color: lightgrey;
+              text-align: center;
+              
+              height: 500px;
+            ">
+            <div style="
+              border: thin solid #888888;">
+              Top
+            </div>
+            <div style="border: thin solid #888888; display: inline-block;">
+              <img 
+                style="width: 300px"
+                src="http://imageshack.us/v2_images/home-hero2.jpg">
+            </div>
+            <div style="
+              border: thin solid #888888; 
+              flex-grow: 1;">
+              fill 1/3 of remaining space
+            </div>
+            <div style="
+              border: thin solid #888888; 
+              flex-grow: 2;">
+              fill 2/3 of remaining space
+            </div>
+            <div style="
+              border: thin solid #888888;">
+              Bottom
+            </div>
+          </div>
+        </div>
+        
+        <div class="example">
+          # Row of columns with different alignments.
+          <div style="
+              display: flex;
+              flex-direction: row;
+            ">
+            <div style="
+                display: flex;
+                flex-direction: column;
+                
+                background-color: lightgrey;
+                text-align: center;
+                
+                align-items: start;
+                
+                height: 500px;
+              ">
+              <div style="
+                border: thin solid #888888;">
+                Top
+              </div>
+              <div style="border: thin solid #888888; display: inline-block;">
+                <img 
+                  style="width: 300px"
+                  src="http://imageshack.us/v2_images/home-hero2.jpg">
+              </div>
+              <div style="
+                border: thin solid #888888; 
+                flex-grow: 1;">
+                fill remaining space
+              </div>
+            </div>
+            
+            
+            <div style="
+                display: flex;
+                flex-direction: column;
+                
+                background-color: lightgrey;
+                text-align: center;
+                
+                align-items: center;
+                
+                height: 500px;
+              ">
+              <div style="
+                border: thin solid #888888;">
+                Top
+              </div>
+              <div style="border: thin solid #888888; display: inline-block;">
+                <img 
+                  style="width: 300px"
+                  src="http://imageshack.us/v2_images/home-hero2.jpg">
+              </div>
+              <div style="
+                border: thin solid #888888; 
+                flex-grow: 1;">
+                fill remaining space
+              </div>
+            </div>
+            
+            
+            <div style="
+                display: flex;
+                flex-direction: column;
+                
+                background-color: lightgrey;
+                text-align: center;
+                
+                align-items: flex-end;
+                
+                height: 500px;
+              ">
+              <div style="
+                border: thin solid #888888;">
+                Top
+              </div>
+              <div style="border: thin solid #888888; display: inline-block;">
+                <img 
+                  style="width: 300px"
+                  src="http://imageshack.us/v2_images/home-hero2.jpg">
+              </div>
+              <div style="
+                border: thin solid #888888; 
+                flex-grow: 1;">
+                fill remaining space
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <h3>Grids</h3>
         <p>Grids let you chunk up your page into arbitrary spaces.</p>
         
         <p>For a complete guide look at <a href="https://www.w3schools.com/CSS/css_grid.asp">w3schools</a>, but here are some quick examples:</p>
         
         <div class="example">
-          # Typical webpage layout:
+          # Standard page with sidebar.
           <div style='
               display: grid;
               
@@ -385,7 +563,7 @@
         
         
         <div class="example">
-          # Page with a header and three columns.
+          # Header and three columns.
           <div style='
               display: grid;
               
@@ -431,7 +609,7 @@
           </div>
         </div>
         
-        <h2>CSS Cosmetics</h2>
+        <h2>Cosmetic Styling Rules</h2>
         <div class="example">
           # Opacity
           <div style="background-color: lightgrey; padding: 1em;">
@@ -464,13 +642,6 @@
           <div style="background-color: #ff8800;">Orange</div>
           <div style="background-color: rgba(0, 0, 255, 0.5);">Translucent Blue</div>
           <div style="background-color: hsl(120, 90%, 10%);">Dark green</div>
-        </div>
-        
-        <div class="example">
-          # Text Alignment
-          <div style="text-align: left;">Left</div>
-          <div style="text-align: center;">Center</div>
-          <div style="text-align: right">Right</div>
         </div>
         
         <div class="example">
@@ -575,51 +746,92 @@
       }).join('\n');
     };
     
+    let walk = (node, consumer) => {
+      consumer(node);
+      for (let n = node.firstChild; n; n = n.nextSibling) {
+        walk(n, consumer);
+      }
+    };
+    
     $(document).ready(() => {
-      setTimeout(() => {
-        $('.example').each((index, code) => {
-          let data = $(code).html();
-          data = data.replace(/Lorem./g, dedent(`
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          `));
-          let lines = data.split('\n').filter(l => l.trim().length > 0);
-          let title = 'Example';
-          if (lines && lines[0].trim().startsWith('#')) {
-            title = lines[0].trim().substring(1).trim();
-            lines = lines.filter((l, i) => i > 0);
-          }
-          data = lines.join('\n');
-          console.log(lines);
-          $(code).replaceWith($(`
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">${title}</h5>
-                <div class="card-title">Code</div>
-                <textarea readonly style="
-                  height: ${(data.split("\n").length+1)*20}px;">${dedent(data)}</textarea>
-                <hr>
-                <div class="card-title">Output</div>
-                <div class="bd-callout bd-callout-info">
-                  ${data}
-                </div>
+      $('.example').each((index, code) => {
+        let data = $(code).html();
+        data = data.replace(/Lorem./g, dedent(`
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        `));
+        let lines = data.split('\n').filter(l => l.trim().length > 0);
+        let title = 'Example';
+        if (lines && lines[0].trim().startsWith('#')) {
+          title = lines[0].trim().substring(1).trim();
+          lines = lines.filter((l, i) => i > 0);
+        }
+        data = lines.join('\n');
+        $(code).replaceWith($(`
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">${title}</h5>
+              <div class="card-title">Code</div>
+              <textarea readonly style="
+                height: ${(data.split("\n").length+1)*20}px;">${dedent(data)}</textarea>
+              <hr>
+              <div class="card-title">Output</div>
+              <div class="bd-callout bd-callout-info">
+                ${data}
               </div>
             </div>
-          `));
-        });
-      }, 100);
+          </div>
+        `));
+      });
+      
+      let lastLevel = 1;
+      let indent = 0;
+      walk($('.main-content')[0], node => {
+        if (!node.tagName) return;
+        
+        let match = /H([0-5])/g.exec(node.tagName);
+        if (!match) return;
+
+        let level = parseInt(match[1], 10);
+        if (level > 1) {
+          // We put h2's on the same level as h1 to
+          // save horizontal space, since the h1 only
+          // is used for the title of the page.
+          level--;
+        }
+        
+        if (level > lastLevel) {
+          indent += 1;
+        } else if (level < lastLevel) {
+          indent -= 1;
+        }
+        indent = Math.min(indent, level - 1);
+        lastLevel = level;
+        
+        
+        let title = node.innerHTML;
+        let id = title.toLowerCase().trim().replace(/\W+/g, '-');
+        $(node).attr('id', id);
+        
+        $('#toc').append(`
+          <a 
+            href="#${id}" 
+            class="nav-link"
+            style="
+              margin-left: ${(indent - 1)*1}rem;
+              font-size: ${1.0/Math.pow(1.05, indent)}em;
+          ">${title}</a>
+        `);
+      });
+      
+      let anchor = window.top.location.hash;
+      if (anchor) {
+        let el = $(anchor);
+        if (el.length > 0) {
+          $('.main-content').scrollTop(el.offset().top);
+        }
+      }
     });
     
-    $(function() {
-      var navSelector = "#toc";
-      var $myNav = $(navSelector);
-      Toc.init({
-        $nav: $myNav,
-        $scope: $('.main-content'),
-      });
-      $(".main-content").scrollspy({
-        target: navSelector
-      });
-    });
     </script>
   </body>
 </html>
